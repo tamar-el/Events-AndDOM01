@@ -22,6 +22,8 @@ function changeText(event) {
     if (event.target.id === "name-input") {
         textToChange = cardName;
         emptyText = "Your name";
+        
+// Step 2: avatar letter (first letter of the name in uppercase, "?" when empty)
         if (ValueInput === "") {
             avatarLetter.textContent = "?";
         } else {
@@ -37,7 +39,9 @@ function changeText(event) {
 
     } else {
         textToChange = cardBio;
-        emptyText = "Your bio will appear here.";    }
+        emptyText = "Your bio will appear here."; 
+        updateBioCounter();  
+    }
 
     if (ValueInput == "") {
         textToChange.textContent = emptyText;
@@ -53,10 +57,16 @@ emailInput.addEventListener('input', changeText);
 bioInput.addEventListener('input', changeText);
 
 
-// Step 2: avatar letter (first letter of the name in uppercase, "?" when empty)
-
 // Step 3: bio character counter + "warning" class when 10 or fewer are left
+const bioLeft=document.getElementById("bio-left");
+const counter=document.getElementsByClassName("counter")[0];
 
+function updateBioCounter(){
+    let remaining=80 -bioInput.value.length;
+    bioLeft.textContent=remaining;
+    counter.classList.toggle("warning", remaining <= 10);
+}
+updateBioCounter();
 // Step 4: accent color (card border + avatar background)
 
 // Step 5: dark mode button
