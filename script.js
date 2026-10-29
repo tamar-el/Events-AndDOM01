@@ -22,8 +22,8 @@ function changeText(event) {
     if (event.target.id === "name-input") {
         textToChange = cardName;
         emptyText = "Your name";
-        
-// Step 2: avatar letter (first letter of the name in uppercase, "?" when empty)
+
+        // Step 2: avatar letter (first letter of the name in uppercase, "?" when empty)
         if (ValueInput === "") {
             avatarLetter.textContent = "?";
         } else {
@@ -39,8 +39,8 @@ function changeText(event) {
 
     } else {
         textToChange = cardBio;
-        emptyText = "Your bio will appear here."; 
-        updateBioCounter();  
+        emptyText = "Your bio will appear here.";
+        updateBioCounter();
     }
 
     if (ValueInput == "") {
@@ -58,19 +58,60 @@ bioInput.addEventListener('input', changeText);
 
 
 // Step 3: bio character counter + "warning" class when 10 or fewer are left
-const bioLeft=document.getElementById("bio-left");
-const counter=document.getElementsByClassName("counter")[0];
+const bioLeft = document.getElementById("bio-left");
+const counter = document.getElementsByClassName("counter")[0];
 
-function updateBioCounter(){
-    let remaining=80 -bioInput.value.length;
-    bioLeft.textContent=remaining;
+function updateBioCounter() {
+    let remaining = 80 - bioInput.value.length;
+    bioLeft.textContent = remaining;
     counter.classList.toggle("warning", remaining <= 10);
 }
 updateBioCounter();
 // Step 4: accent color (card border + avatar background)
+const colorselect = document.getElementById("color-select");
+const card = document.getElementById("card");
+
+function changecolor() {
+    avatarLetter.style.backgroundColor = colorselect.value;
+    card.style.borderColor = colorselect.value;
+}
+colorselect.addEventListener('change', changecolor)
 
 // Step 5: dark mode button
-
+const themeBtn = document.getElementById("theme-btn");
+const body = document.body;
+function changeLight() {
+    if (body.classList.contains("dark")) {
+        body.classList.remove("dark")
+        themeBtn.textContent = "Dark mode";
+    }
+    else {
+        body.classList.add("dark")
+        themeBtn.textContent = "Light mode";
+    }
+}
+themeBtn.addEventListener('click', changeLight)
 // Step 6: reset button
 
+
+const resetBtn = document.getElementById("reset-btn");
+function resetButton() {
+    cardForm.reset();
+    cardName.textContent = "Your name";
+    cardJob.textContent = "Your job title"
+    cardEmail.textContent = "your@email.com";
+    cardBio.textContent = "Your bio will appear here.";
+    avatarLetter.textContent = "?";
+    if (body.classList.contains("dark")) {
+        body.classList.remove("dark")
+        themeBtn.textContent = "Dark mode";
+    }
+
+    colorselect.selectedIndex = 0;
+
+    updateBioCounter();
+    changecolor();
+
+}
+resetBtn.addEventListener('click', resetButton)
 //
